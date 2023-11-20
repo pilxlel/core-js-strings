@@ -366,8 +366,17 @@ function isPalindrome(str) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  const arr = sentence.split(' ');
+  let maxLength = arr[0].length;
+  let word = arr[0];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (maxLength < arr[i].length) {
+      word = arr[i];
+      maxLength = arr[i].length;
+    }
+  }
+  return word;
 }
 
 /**
@@ -380,8 +389,12 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  const arr = str.split(' ');
+  for (let i = 0; i < arr.length; i += 1) {
+    arr[i] = arr[i].split('').reverse().join('');
+  }
+  return arr.join(' ');
 }
 
 /**
@@ -395,8 +408,17 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  const arr = str.split('');
+  const res = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i].toUpperCase() === arr[i]) {
+      res.push(arr[i].toLowerCase());
+    } else {
+      res.push(arr[i].toUpperCase());
+    }
+  }
+  return res.join('');
 }
 
 /**
@@ -412,8 +434,8 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
@@ -426,8 +448,13 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const regExpLeft = /(Hello, )/g;
+  const regExpRight = /(!)/g;
+
+  let res = value.replace(regExpLeft, '');
+  res = res.replace(regExpRight, '');
+  return res;
 }
 
 /**
