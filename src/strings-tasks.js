@@ -468,8 +468,8 @@ function extractNameFromTemplate(value) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.substring(1, str.length - 1);
 }
 
 /**
@@ -487,8 +487,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -507,8 +507,33 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const output = [];
+  const arr = str.split('');
+  let result = '';
+
+  for (let i = 65; i <= 77; i += 1) {
+    output[i] = String.fromCharCode(i + 13);
+  }
+  for (let i = 78; i <= 90; i += 1) {
+    output[i] = String.fromCharCode(i - 13);
+  }
+  for (let i = 97; i <= 109; i += 1) {
+    output[i] = String.fromCharCode(i + 13);
+  }
+  for (let i = 110; i <= 122; i += 1) {
+    output[i] = String.fromCharCode(i - 13);
+  }
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (output[String(arr[i]).charCodeAt()] === undefined) {
+      result += arr[i];
+    } else {
+      result += output[String(arr[i]).charCodeAt()];
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -535,8 +560,17 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const regExp = /['\n]/g;
+  const cardStr = `
+'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'`;
+
+  const modefiedCardStr = cardStr.replace(regExp, '').trim();
+  const arr = modefiedCardStr.split(',');
+  return arr.indexOf(value);
 }
 
 module.exports = {
